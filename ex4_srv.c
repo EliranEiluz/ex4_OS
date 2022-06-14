@@ -27,8 +27,9 @@ int fromBufferToNumbers(char* buffer, int* toSrvNumbers, int size) {
     if(errno == EINVAL || temp > INT_MAX || temp < INT_MIN) {
         return -1;
     }
+    int i;
     toSrvNumbers[0] = temp;
-    for(int i = 1; i < size; i++) {
+    for(i = 1; i < size; i++) {
         token = strtok(NULL, " ");
         temp = strtol(token, NULL, 10);
         if(errno == EINVAL || temp > INT_MAX || temp < INT_MIN) {

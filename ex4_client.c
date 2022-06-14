@@ -16,7 +16,8 @@
 
 int fromStringsToNumbers(char** buffer, int* toSrvNumbers, int size) {
     long temp;
-    for(int i = 0; i < size; i++) {;
+    int i;
+    for(i = 0; i < size; i++) {;
         temp = strtol(buffer[i], NULL, 10);
         if(errno == EINVAL || temp > INT_MAX || temp < INT_MIN) {
             return -1;
@@ -102,7 +103,8 @@ int openToSrv() {
 void writeToSrv(char** buf, int size, int fd, char* myPid) {
     char toWrite[100];
     strcpy(toWrite, myPid);
-    for(int i = 0; i < size; i++) {
+    int i;
+    for(i = 0; i < size; i++) {
         strcat(toWrite, " ");
         strcat(toWrite, buf[i]);
     }
