@@ -171,7 +171,6 @@ void alarmHandler(int sigNum) {
 
 
 int main() {
-    printf("%d\n", getpid());
     struct sigaction sig;
     sigset_t mask;
     sigfillset(&mask);
