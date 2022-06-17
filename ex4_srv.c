@@ -110,18 +110,22 @@ void handleClient() {
     // convert the client's PID to string with sprintf.
     sprintf(clientPidToString, "%d", toSrvNumbers[0]);
 
-    //
+    // create the full name of the client file.
     strcat(fileName, clientPidToString);
     int clientFile = open(fileName, W_OK | O_CREAT, 0777);
     if(clientFile < 0) {
         kill(SIGUSR2, getppid());
         exit(-1);
     }
+
+    // if the calculation succeeded, write the result to the client file.
     if(calculate(toSrvNumbers[1], toSrvNumbers[2], toSrvNumbers[3], &result) != NULL) {
         sprintf(resultBuffer, "%d", result);
         write(clientFile, resultBuffer, strlen(resultBuffer));
         write(clientFile, "\n\0", 2);
     }
+
+    // if the calculation failed, it means that the client tried to divide by zero. so, write an error message.
     else {
         write(clientFile, "CANNOT_DIVIDE_BY_ZERO\n", strlen("CANNOT_DIVIDE_BY_ZERO\n"));
     }
@@ -148,7 +152,9 @@ void sigUsr2Handler(int sigNum, siginfo_t* info, void* v) {
     }
 }
 
-
+/*
+ * This function handles a client. we enter to this function when we get sigusr1.
+ */
 void sigUsr1Handler(int sigNum) {
     alarm(0);
     int child = fork();
@@ -163,10 +169,12 @@ void sigUsr1Handler(int sigNum) {
     }
 }
 
-
+/*
+ * If 60 seconds passed since the last service request, print this and exit.
+ */
 void alarmHandler(int sigNum) {
     printf("The server was closed because no service request was received for the last 60 seconds\n");
-    exit(-1);
+    exit(0);
 }
 
 

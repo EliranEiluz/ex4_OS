@@ -13,7 +13,11 @@
 #define TO_SRV "to_srv"
 
 
-
+/*
+ * this function gets an array of string and converts them to integers.
+ * The function does is with strtol. If there is an error the function returns -1.
+ * The function returns 0 on success.
+ */
 int fromStringsToNumbers(char** buffer, int* toSrvNumbers, int size) {
     long temp;
     int i;
@@ -27,6 +31,9 @@ int fromStringsToNumbers(char** buffer, int* toSrvNumbers, int size) {
     return 0;
 }
 
+/*
+ * In case of an error, we send sigUsr2, which prints an error message and exits.
+ */
 void sigUsr2Handle(int sigNum) {
     printf("ERROR_FROM_EX4\n");
     exit(-1);
