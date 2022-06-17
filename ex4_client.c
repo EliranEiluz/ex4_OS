@@ -1,3 +1,5 @@
+// Eliran Eiluz 313268146
+
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
@@ -9,7 +11,6 @@
 #include <sys/wait.h>
 #include <sys/syscall.h>
 #include <linux/random.h>
-#define _GNU_SOURCE
 #define TO_SRV "to_srv"
 
 
