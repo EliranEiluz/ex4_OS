@@ -131,6 +131,9 @@ int main(int argc, char** argv) {
     if(fromStringsToNumbers(argv + 1, toSrvParams, 4) == -1) {
         raise(SIGUSR2);
     }
+    if(toSrvParams[2] > 4 || toSrvParams[2] < 1) {
+        raise(SIGUSR2);
+    }
     int fd = openToSrv();
     char myPid[10];
     sprintf(myPid, "%d", getpid());
