@@ -138,7 +138,9 @@ int main(int argc, char** argv) {
     char myPid[10];
     sprintf(myPid, "%d", getpid());
     writeToSrv(argv + 2, 3, fd, myPid);
-    kill(toSrvParams[0], SIGUSR1);
+    if(kill(toSrvParams[0], SIGUSR1) == -1) {
+        raise(SIGUSR2);
+    }
     alarm(30);
     pause();
 }
